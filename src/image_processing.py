@@ -15,20 +15,21 @@ def show_comparative_images(image, magnitude):
 	ax[1].set_yticks([])
 	plt.show()
 
-def detect_blur_fft(image, frequency_threshold=60, thresh=10):
+def detect_blur_fft(image, frequency_threshold=50, thresh=15):
 	"""
-	Computes if the image is blurry (i.e. a low definition image), by processing the image with a high pass filter on its spectrum.
+	computes if the image is blurry (i.e. a low definition image), by processing the image with a high pass filter on frequency spectrum
 	"""
-	fft_image = frequency.extract_frequencies(image)
+	fft_image = frequency.go_to_frequency_domain(image)
 	magnitude = frequency.compute_magnitude(fft_image)
-	show_comparative_images(image, magnitude)
+	
+  show_comparative_images(image, magnitude)
 
 	filtered_spectrum = frequency.high_pass_filter(
 		fft_image, frequency_threshold)
-	uncentered_filtered_spectrum = np.fft.ifftshift(filtered_spectrum)
-	recon_image = np.fft.ifft2(uncentered_filtered_spectrum)
-
+    
+	recon_image = frequency.return_to_spatial_domain(filtered_spectrum)
 	recon_magnitude = frequency.compute_magnitude(recon_image)
+
 	show_comparative_images(image, recon_magnitude)
 
 	recon_mean = np.mean(magnitude)

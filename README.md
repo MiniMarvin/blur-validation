@@ -47,21 +47,21 @@ A imagem abaixo, por exemplo, possui o componente DC (frequência zero) no centr
 
 ### 2. Removendo as baixas frequências
 
+Podemos considerar que as frequências baixas contêm mais informações da imagem do que as altas e, ao removê-las, estamos removendo informação da imagem propriamente dita. De fato, a remoção das frequências baixas como sugerido corrompe a imagem original, mas o propósito aqui é avaliar o nível de nitidez da imagem e, para isso, precisamos focar na quantidade de altas frequências já que estas, como explicado anteriormente, são as responsáveis por guardar informações de bordas em geral.
 
-Zerando o centro da imagem removemos as baixas frequencias, ou seja, estamos aplicando o **filtro passa-altas**. As frequências baixas contêm mais informações da imagem do que as altas, ou seja, estamos removendo informação da imagem.
+Uma forma de remover as baixas frequências no que pode ser visto como uma aplicação grosseira do **filtro passa-altas** é zerar o centro da imagem onde estava colocado o componente DC.
 
 ![url](docs/zerar-frequencias.png)
 
-Deslocando o componente DC para F(0, 0) novamente e aplicando a Transformada Inversa de Fourier da forma 
+### 3. Retornando para o domínio original
+
+Após a remoção das baixas frequências, podemos deslocar o componente DC para F(0, 0) novamente e aplicar a Transformada Inversa de Fourier da forma 
 
 <img src="https://latex.codecogs.com/gif.latex?f(a, b) = \frac{1}{N^2} \sum_{k=0}^{N-1} \sum_{l=0}^{N-1} F(k, l) e^{-j 2 \pi (\frac{ka}{N} + \frac{lb}{N})}"/> 
 
-A imagem resultante é reconstruida e os resultados vistos abaixo para uma imagem borrada e imagens nítidas
+A imagem resultante é reconstruida e os resultados abaixo mostram a diferença do que se pode ver das altas frequências em imagens borradas e imagens nítidas. Como pode ser observado, o resultado da segunda imagem (nítida) possui contornos bem mais bem definidos do que na primeira imagem (borrada).
 
 ![url](docs/borrado_sem_baixa_frequencia.png)
 ![url](docs/nitido_sem_baixas_frequencias.png)
 
-
-Retirando uma média da magnitude, observamos que imagens com uma média mais baixa tendem a estarem mais borradas e imagens com médias mais altas são mais nítidas porque as altas frequencias guardam informações de nitidez da imagem
-
-A partir daí podemos levantar o grau de nitidez da imagem e trazer o grau de nitidez da imagem. 
+Assim, ao remover as baixas frequências, permanecemos apenas com as informações de nitidez que necessitamos para avaliar a qualidade da imagem em relação aos níveis de borrado. Retirando a média dos valores de magnitude obtidos, veremos que imagens mais nítidas tendem a ter mais informações de bordas e, portanto, uma média de valores de altas frequências mais alta do que imagens borradas que possuem menos informações de bordas e uma média mais baixa de valores de altas frequências.
