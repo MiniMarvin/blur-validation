@@ -18,20 +18,18 @@ def compute_magnitude(frequency_image):
 	"""
 	computes the magnitude of the frequency spectrum in a logarithmic approach so we can analyze it properly
 	"""
+	# copy_image = np.copy(frequency_image)
+	# copy_image[copy_image == 0] = 0.000000001
 	magnitude = 20*np.log(np.abs(frequency_image))
 	return magnitude
 
 def high_pass_filter(frequency_image, frequency_radius):
-	(height, width) = frequency_image.shape
-	(center_x, center_y) = width // 2, height // 2
-	filtered_image = np.copy(frequency_image)
+  (height, width) = frequency_image.shape
+  (center_x, center_y) = width // 2, height // 2
 
-	filtered_image[
-		center_y - frequency_radius//2:center_y + frequency_radius//2, 
-		center_x - frequency_radius//2:center_x + frequency_radius//2
-	] = 0
+  frequency_image[center_y - frequency_radius:center_y + frequency_radius, center_x - frequency_radius:center_x + frequency_radius] = 0
 
-	return filtered_image
+  return frequency_image
 
 # def gaussian_2d(x, y, mu1, mu2, sig):
 #     return np.exp(- (np.power(x - mu1, 2) + np.power(x - mu2, 2)) / (2 * np.power(sig, 2)))
