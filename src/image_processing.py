@@ -1,20 +1,20 @@
-import frequency
+from . import frequency
 import numpy as np
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 import cv2
 
-def show_comparative_images(image, magnitude):
-	(fig, ax) = plt.subplots(1, 2, )
-	ax[0].imshow(image, cmap="gray")
-	ax[0].set_title("Input")
-	ax[0].set_xticks([])
-	ax[0].set_yticks([])
+# def show_comparative_images(image, magnitude):
+# 	(fig, ax) = plt.subplots(1, 2, )
+# 	ax[0].imshow(image, cmap="gray")
+# 	ax[0].set_title("Input")
+# 	ax[0].set_xticks([])
+# 	ax[0].set_yticks([])
 
-	ax[1].imshow(magnitude, cmap="gray")
-	ax[1].set_title("Magnitude Spectrum")
-	ax[1].set_xticks([])
-	ax[1].set_yticks([])
-	plt.show()
+# 	ax[1].imshow(magnitude, cmap="gray")
+# 	ax[1].set_title("Magnitude Spectrum")
+# 	ax[1].set_xticks([])
+# 	ax[1].set_yticks([])
+# 	plt.show()
 
 def detect_blur_fft(image, frequency_threshold=50, thresh=15):
 	"""
@@ -28,11 +28,11 @@ def detect_blur_fft(image, frequency_threshold=50, thresh=15):
 		frequency_threshold//2)
     
 	recon_image = frequency.return_to_spatial_domain(filtered_spectrum)
-	# recon_magnitude = frequency.compute_magnitude(recon_image)
+	recon_magnitude = frequency.compute_magnitude(recon_image)
 
 	# show_comparative_images(image, recon_magnitude)
 	output_img = "../output_images/test.png"
-	cv2.imwrite(output_img, recon_image)
+	cv2.imwrite(output_img, recon_magnitude)
 
 	recon_mean = np.mean(magnitude)
 	return (recon_mean, recon_mean <= thresh)

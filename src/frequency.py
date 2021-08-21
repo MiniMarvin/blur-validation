@@ -1,10 +1,10 @@
 import numpy as np
 
-def return_to_spacial_domain(spectrum):
-  """
-  puts the DC component back at position f(0,0) and computes the inverse FFT to return to the spatial domain
+def return_to_spatial_domain(spectrum):
 	"""
-  uncentered_filtered_spectrum = np.fft.ifftshift(spectrum)
+	puts the DC component back at position f(0,0) and computes the inverse FFT to return to the spatial domain
+	"""
+	uncentered_filtered_spectrum = np.fft.ifftshift(spectrum)
 	return np.fft.ifft2(uncentered_filtered_spectrum)
 
 def go_to_frequency_domain(image):
