@@ -1,14 +1,19 @@
-import imutils
-import cv2
 import src.image_processing as ip
+import src.manage_file as mf
 
-base_path = "images/"
-img_path = base_path + "10.jpg"
+def score_images(base_path):
+	files = mf.list_files(base_path)
+	scores = [
+		(
+			ip.detect_blur_fft(ip.gray_image(base_path+file), 50, 10, file.split(".")[0]), 
+			file
+		) for file in files]
+	
+	return scores
 
-orig = cv2.imread(img_path)
-orig = imutils.resize(orig, width=500)
-gray = cv2.cvtColor(orig, cv2.COLOR_BGR2GRAY)
+def main():
+	scores = score_images("images/")
+	print(scores)
+	pass
 
-output_path = "output_images/"
-
-ip.detect_blur_fft(gray, 50, 15)
+main()

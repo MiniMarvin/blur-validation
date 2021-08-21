@@ -1,7 +1,7 @@
 # Detecção de blur
 
 ## Transformada de Fourier
-A transformada de Fourier é usada para decompor uma imagem nos seus componentes cosseno e seno (reais e imaginários) e passá-la do domínio espacial para o domínio de Fourier. No domínio de Fourier, cada ponto da imagem representa uma frequência particular que ela contém. 
+A transformada de Fourier é usada para decompor uma imagem nos seus componentes cosseno e seno (reais e imaginários) e passá-la do domínio espacial para o domínio de Fourier. No domínio de Fourier, cada pixel da imagem representa uma frequência particular que ela contém. 
 
 ### O que significam as frequências de uma imagem?
 As frequências podem ser entendidas como a **taxa de mudança de intensidade por pixel**. De forma geral, podemos pensar numa foto como a mostrada abaixo 
@@ -37,7 +37,7 @@ O componente DC pode ser definido como o "componente de frequência zero" e, em 
 
 ![url](docs/magnitude_sem_shift.png)
 
-A melhor maneira de analisar o espectro de magnitude de uma imagem é deslocando o componente DC para o centro e aplicando com o logarítmo. Como o componente DC é muito maior que os demais pontos, seria impossível construir o espectro de magnitude de forma visível sem o uso do logarítmo que é arbitrado conforme a expressão: 
+A melhor maneira de analisar o espectro de magnitude de uma imagem é deslocando o componente DC para o centro e aplicando com o logarítmo. Como o componente DC é muito menor que os demais pontos, seria impossível construir o espectro de magnitude de forma visível sem o uso do logarítmo que é arbitrado conforme a expressão: 
 
 <img src="https://latex.codecogs.com/gif.latex?M = 10 \cdot log(|f(k, l)|^2) = 20 \cdot log(|f(k, l)|)"/>
 
@@ -64,4 +64,4 @@ A imagem resultante é reconstruida e os resultados abaixo mostram a diferença 
 ![url](docs/borrado_sem_baixa_frequencia.png)
 ![url](docs/nitido_sem_baixas_frequencias.png)
 
-Assim, ao remover as baixas frequências, permanecemos apenas com as informações de nitidez que necessitamos para avaliar a qualidade da imagem em relação aos níveis de borrado. Retirando a média dos valores de magnitude obtidos, veremos que imagens mais nítidas tendem a ter mais informações de bordas e, portanto, uma média de valores de altas frequências mais alta do que imagens borradas que possuem menos informações de bordas e uma média mais baixa de valores de altas frequências.
+Assim, ao remover as baixas frequências, permanecemos apenas com as informações de nitidez que necessitamos para avaliar a qualidade da imagem em relação aos níveis de borrado. Realizando a média aritmética dos valores de magnitude obtidos, veremos que imagens mais nítidas tendem a ter mais informações de bordas e, portanto, uma média de valores de altas frequências mais alta do que imagens borradas que possuem menos informações de bordas e uma média mais baixa de valores de altas frequências.
