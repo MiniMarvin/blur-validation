@@ -13,7 +13,7 @@ def score_images(base_path, filter_type="square", ranking_type="mean"):
 
 def compare_scores():
   for tp in ["square", "smooth_square"]:
-    scores = score_images("images/", tp, "mean")
+    scores = score_images("images/", tp, "variance")
     sorted_scores = sorted(scores, key=lambda a: a[0], reverse=True)
     print(tp)
     for score in sorted_scores:
