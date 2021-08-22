@@ -11,11 +11,23 @@ def score_images(base_path, filter_type="square"):
 	
 	return scores
 
-def main():
-	scores = score_images("images/", "smooth_square")
-	sorted_scores = sorted(scores, key=lambda a: a[0], reverse=True)
+def compare_scores():
+  for tp in ["square", "smooth_square", "circle", "smooth_circle"]:
+    scores = score_images("images/", tp)
+    sorted_scores = sorted(scores, key=lambda a: a[0], reverse=True)
+    print(tp)
+    for score in sorted_scores:
+      s = score[1] + "\t|\t" + str(score[0])
+      print(s)
+    print()
+    
 
-	print(sorted_scores)
-	pass
+def main():
+	# scores = score_images("images/", "smooth_square")
+	# sorted_scores = sorted(scores, key=lambda a: a[0], reverse=True)
+
+	# print(sorted_scores)
+  compare_scores()
+  pass
 
 main()
