@@ -48,5 +48,9 @@ def detect_blur_fft(image, frequency_threshold=60, filter_type="square", file_na
   mf.ensure_dir(path)
   cv2.imwrite(path, recon_magnitude)
 
-  recon_mean = np.mean(recon_magnitude)
+  # TEST: implementation of erode & dilate to have more well defined borders for the image
+
+  # recon_mean = np.mean(recon_magnitude)
+  # recon_mean = np.mean(filtered_magnitude[filtered_magnitude >= -100])
+  recon_mean = -np.var(filtered_magnitude[filtered_magnitude >= -100])
   return recon_mean
