@@ -1,7 +1,7 @@
 import src.image_processing as ip
 import src.manage_file as mf
 
-def score_images(base_path, filter_type="square", ranking_type="variance"):
+def score_images(base_path, filter_type="square", ranking_type="mean"):
 	files = mf.list_files(base_path)
 	scores = [
 		(
@@ -13,7 +13,7 @@ def score_images(base_path, filter_type="square", ranking_type="variance"):
 
 def compare_scores():
   for tp in ["square", "smooth_square"]:
-    scores = score_images("images/", tp, "variance")
+    scores = score_images("images/", tp, "mean")
     sorted_scores = sorted(scores, key=lambda a: a[0], reverse=True)
     print(tp)
     for score in sorted_scores:
