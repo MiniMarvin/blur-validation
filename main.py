@@ -10,24 +10,14 @@ def score_images(base_path, filter_type="square", ranking_type="mean"):
 		) for file in files]
 	
 	return scores
-
-def compare_scores():
-  for tp in ["square", "smooth_square"]:
-    scores = score_images("images/", tp, "variance")
-    sorted_scores = sorted(scores, key=lambda a: a[0], reverse=True)
-    print(tp)
-    for score in sorted_scores:
-      s = score[1] + "\t|\t" + str(score[0])
-      print(s)
-    print()
     
-
 def main():
-	# scores = score_images("images/", "smooth_square")
-	# sorted_scores = sorted(scores, key=lambda a: a[0], reverse=True)
+  scores = score_images("images/")
+  sorted_scores = sorted(scores, key=lambda a: a[0], reverse=True)
 
-	# print(sorted_scores)
-  compare_scores()
-  pass
+  for score in sorted_scores:
+    s = score[1] + "\t|\t" + str(score[0])
+    print(s)
+  print()
 
 main()

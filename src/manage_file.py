@@ -2,7 +2,6 @@ import os
 from os import listdir
 from os.path import isfile, join
 
-
 def ensure_dir(file_path):
 	directory = os.path.dirname(file_path)
 	if not os.path.exists(directory):
