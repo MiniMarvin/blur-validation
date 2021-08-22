@@ -10,7 +10,7 @@ def gray_image(img_path):
 	gray = cv2.cvtColor(orig, cv2.COLOR_BGR2GRAY)
 	return gray
 
-def detect_blur_fft(image, frequency_threshold=60, file_name="test"):
+def detect_blur_fft(image, frequency_threshold=60, filter_type="square", file_name="test"):
   """
   computes if the image is blurry (i.e. a low definition image), by processing the image with a high pass filter on frequency spectrum
   """
@@ -26,11 +26,14 @@ def detect_blur_fft(image, frequency_threshold=60, file_name="test"):
   mf.ensure_dir(path)
   cv2.imwrite(path, magnitude)
 
-  # filtered_spectrum = frequency.square_high_pass_filter(fft_image, frequency_threshold)
-
-  # filtered_spectrum = frequency.circle_high_pass_filter(fft_image, frequency_threshold)
-
-  filtered_spectrum = frequency.circle_smooth_high_pass_filter(fft_image, frequency_threshold)
+  if filter_type == "smooth_square":
+    filtered_spectrum = frequency.square_smooth_high_pass_filter(fft_image, frequency_threshold)
+  elif filter_type == "smooth_circle":
+    filtered_spectrum = frequency.circle_smooth_high_pass_filter(fft_image, frequency_threshold)
+  elif filter_type == "circle":
+    filtered_spectrum = frequency.circle_high_pass_filter(fft_image, frequency_threshold)
+  else:
+    filtered_spectrum = frequency.square_high_pass_filter(fft_image, frequency_threshold)
 
   filtered_magnitude = frequency.compute_magnitude(filtered_spectrum)
 

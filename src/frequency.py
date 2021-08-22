@@ -30,6 +30,23 @@ def square_high_pass_filter(frequency_image, frequency_radius):
 
   return frequency_image
 
+def square_smooth_high_pass_filter(frequency_image, frequency_radius):
+  (height, width) = frequency_image.shape[:2]
+  (center_x, center_y) = width // 2, height // 2
+
+  filter_mask = np.full((height, width), 255, dtype = np.uint8)
+  start_point = (center_x - frequency_radius, center_y - frequency_radius)
+  end_point = (center_x + frequency_radius, center_y + frequency_radius)
+  filter_mask = cv2.rectangle(filter_mask, 
+    start_point, end_point, 0, -1)
+    
+  kernel_size = frequency_radius//2 + 1
+  filter_mask = cv2.GaussianBlur(filter_mask,
+  (kernel_size,kernel_size),0)/255.0
+  masked_image = frequency_image * filter_mask
+
+  return masked_image
+
 def circle_high_pass_filter(frequency_image, frequency_radius):
   (height, width) = frequency_image.shape[:2]
   (center_x, center_y) = width // 2, height // 2
@@ -52,7 +69,7 @@ def circle_smooth_high_pass_filter(frequency_image, frequency_radius):
     (center_x, center_y), 
     frequency_radius, 0, -1)
     
-  kernel_size = frequency_radius//10
+  kernel_size = frequency_radius//2 + 1
   filter_mask = cv2.GaussianBlur(filter_mask,
   (kernel_size,kernel_size),0)/255.0
   masked_image = frequency_image * filter_mask
