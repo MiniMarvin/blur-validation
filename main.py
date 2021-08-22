@@ -5,7 +5,7 @@ def score_images(base_path, filter_type="square"):
 	files = mf.list_files(base_path)
 	scores = [
 		(
-			ip.detect_blur_fft(ip.gray_image(base_path+file), 60, filter_type, file.split(".")[0]), 
+			ip.detect_blur_fft(ip.gray_image(base_path+file), 60, filter_type, file.split(".")[0] + "_" + filter_type), 
 			file
 		) for file in files]
 	
