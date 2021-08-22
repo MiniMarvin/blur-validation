@@ -10,7 +10,7 @@ def gray_image(img_path):
 	gray = cv2.cvtColor(orig, cv2.COLOR_BGR2GRAY)
 	return gray
 
-def detect_blur_fft(image, frequency_threshold=60, filter_type="square", file_name="test"):
+def detect_blur_fft(image, frequency_threshold=60, filter_type="square", ranking_type="variance", file_name="test"):
   """
   computes if the image is blurry (i.e. a low definition image), by processing the image with a high pass filter on frequency spectrum
   """
@@ -49,8 +49,14 @@ def detect_blur_fft(image, frequency_threshold=60, filter_type="square", file_na
   cv2.imwrite(path, recon_magnitude)
 
   # TEST: implementation of erode & dilate to have more well defined borders for the image
+  recon_score = 0
 
-  # recon_mean = np.mean(recon_magnitude)
-  # recon_mean = np.mean(filtered_magnitude[filtered_magnitude >= -100])
-  recon_mean = -np.var(filtered_magnitude[filtered_magnitude >= -100])
-  return recon_mean
+  if ranking_type == "mean":
+    recon_mean = np.mean(recon_magnitude)
+    recon_mean = np.mean(filtered_magnitude[filtered_magnitude >= -100])
+    recon_score = recon_mean
+  else:
+    recon_variance = -np.var(filtered_magnitude[filtered_magnitude >= -100])
+    recon_score = recon_variance
+    
+  return recon_score
